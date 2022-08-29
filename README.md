@@ -9,15 +9,16 @@ Para las peticiones realizadas por un CLIENTE, se puede utilizar el siguiente us
     passs: 1234
 
 * OBTENER DATOS DE UN CLIENTE
+    http://127.0.0.1:8000/api/cliente/DNI_CLIENTE/
     http://127.0.0.1:8000/api/cliente/56493045/
 
 * OBTENER SALDO DE CUENTA DE UN CLIENTE
-
-    http://127.0.0.1:8000/api/cliente/56493045/ 
+    http://127.0.0.1:8000/api/cuenta/DNI_CLIENTE/
+    http://127.0.0.1:8000/api/cuenta/56493045/ 
 
 * OBTENER MONTO DE PRESTAMOS DE UN CLIENTE
-
-    http://127.0.0.1:8000/api/cliente/56493045/ 
+    http://127.0.0.1:8000/api/prestamo/DNI_CLIENTE/    
+    http://127.0.0.1:8000/api/prestamo/56493045/ 
 
 Para las peticiones realizadas por un EMPLEADO, se puede utilizar el siguiente usuario y contraseña: 
 

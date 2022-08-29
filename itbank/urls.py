@@ -35,5 +35,5 @@ urlpatterns = [
     path('api/sucursales/', main_views.SucursalLists.as_view(),name='api_sucursales' ),
     path('api/cliente/<int:cliente_dni>/', main_views.DatosCliente.as_view(), name='api_cliente_datos'),
     path('api/cuenta/<int:cliente_dni>/', main_views.SaldoCliente.as_view(), name='api_cliente_saldo'),
-    path('api/prestamo/<int:cliente_dni>/', main_views.PrestamoCliente.as_view(), name='api_cliente_prestamo'),
+    path('api/prestamo/<int:cliente_dni>/', main_views.PrestamoCliente.as_view(), name='api_cliente_prestamo'), 
 ]

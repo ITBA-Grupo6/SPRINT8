@@ -25,6 +25,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse as reverse2
+from django.contrib.auth.decorators import login_required
 
 class DatosCliente(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -51,7 +52,6 @@ class SaldoCliente(APIView):
         if (user.username == owner):
             cuenta = Cuenta.objects.filter(account_id=id_cuenta)
             serializer = CuentaSerializer(cuenta, many=True)
-            print(serializer.data[0])
             if cuenta:
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response('No existe cliente para este dni', status=status.HTTP_404_NOT_FOUND)
