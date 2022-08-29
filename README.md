@@ -42,7 +42,7 @@ CLIENTE:
     
 EMPLEADO: 
 
-    user: 
+    user: 29778851
     passs: 1234
 
 * MODIFICAR DIRECCION DE UN CLIENTE
