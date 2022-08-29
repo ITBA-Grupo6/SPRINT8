@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.texto-nav {
+    text-decoration: none;
+    color: inherit;
+    padding: 1em;
+    cursor: pointer;
+    font-weight: bold;
+}
+#descripcion-banco {
+    padding-left: 10%;
+    padding-top: 5%;
+}
+.login-form {
+    padding-top: 7%;
+}
+
+.bienvenida{
+    width: 59%;
+    float: left;
+    text-align: center;
+}
+
+.bienvenida h1{
+    color: #aaaaaa;
+    font-weight: 100;
+}
+
+.logo3d {
+    width: 60%;
+    margin-top: 100px;
+    position: absolute;
+}
+
+.texto-centrado {
+    text-align: center;
+}

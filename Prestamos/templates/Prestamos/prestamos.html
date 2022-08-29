@@ -1,0 +1,60 @@
+{% extends 'Base/base.html' %} {% load static %} {% block title%}Prestamos{%endblock %} {% block content %}
+<style>
+  .errorlist {
+    color: red;
+  }  
+</style>
+{% if estado %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <div class="row mt-3">
+          <h2 class="fw-bold text-center py-5">Prestamos</h2>
+        </div>
+        {% if estado == 2 %}
+        <div> 
+          <p><b>Disculpa {{request.user.username}}</b></p>
+          <p><b>Tu prestamo NO ha sido aprobado, porque excede el limite para el tipo de cuenta solicitado.</b></p>
+        </div>
+        {% endif %}
+        {% if estado == 1 %}
+        <div>
+          <p><b>Gracias {{request.user.username}}</b></p>
+          <p><b>Tu prestamo ha sido aprobado. Puedes revisar tu dinero en la sección: CUENTA</b></p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% else %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <div class="row mt-3">
+          <h2 class="fw-bold text-center py-5">Prestamos</h2>
+        </div>
+        <div>          
+          <h4 class="text-center">Montos límite</h4>
+            <li>Classic: 100.000$</li>
+            <li>Gold: 300.000$</li>
+            <li>Black: 500.000$</li>
+        </div>
+        <form action="" method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+            <input
+              type="submit"
+              class="btn btn-primary btn-block"
+              value="Enviar"
+            />
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endif %}
+{% endblock %}

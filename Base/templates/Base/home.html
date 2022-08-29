@@ -1,0 +1,43 @@
+{% extends 'Base/base.html' %} {% load static %} {% block title %}Home
+{%endblock %} {% block content %}
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-9 mx-auto mb-5">
+      <div class="row mt-3">
+        <h2 class="fw-bold text-center py-5">
+          Hola! Estamos contentos de tenerte de vuelta.
+        </h2>
+      </div>
+      <div class="row mb-3">
+        <h4 class="fw-normal text-center">
+          Probá nuestra APP para una mejor experiencia.
+        </h4>
+      </div>
+      <div class="row d-flex justify-content-center mb-3">
+        <div class="col-1">
+          <a href="https://www.apple.com/app-store/"
+            ><img
+              src="{% static 'Base/img/app_store.png' %}"
+              alt="App Store"
+              ,
+              width="40"
+              ,height="40"
+            />
+          </a>
+        </div>
+        <div class="col-1">
+          <a href="https://play.google.com/store"
+            ><img
+              src="{% static 'Base/img/google_play.png' %}"
+              alt="Google Play Store"
+              ,
+              width="40"
+              ,height="40"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
