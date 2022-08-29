@@ -26,6 +26,13 @@ class PrestamoClienteSerializer(serializers.ModelSerializer):
         model = Prestamo
         #indicamos que use todos los campos
         fields = ['loan_type', 'loan_total']
+
+class PrestamoSucursalSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = Prestamo
+        #indicamos que use todos los campos
+        fields = "__all__"
+
 class DireccionesClienteSerializer(serializers.ModelSerializer):
      class Meta:
         model = Direcciones

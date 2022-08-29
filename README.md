@@ -22,23 +22,32 @@ Para las peticiones realizadas por un CLIENTE, se puede utilizar el siguiente us
 
 Para las peticiones realizadas por un EMPLEADO, se puede utilizar el siguiente usuario y contraseña: 
 
-    user: 
+    user: 29778851
     passs: 1234
     
 * OBTENER MONTO DE PRESTAMOS DE UNA SUCURSAL
+
+    http://127.0.0.1:8000/api/prestamo/sucursal/ID_SUCURSAL/
+    http://127.0.0.1:8000/api/prestamo/sucursal/66/
+
 * OBTENER TARJETAS ASOCIADAS A UN CLIENTE
 * GENERAR UNA SOLICITUD DE PRESTAMO PARA UN CLIENTE
 * ANULAR SOLICITUD DE PRESTAMO DE CLIENTE
 
 Para las peticiones realizadas por un CLIENTE o un EMPLEADO, se puede utilizar el siguiente usuario y contraseña: 
 CLIENTE: 
+
     user: 56493045
     passs: 1234
+    
 EMPLEADO: 
+
     user: 
     passs: 1234
+
 * MODIFICAR DIRECCION DE UN CLIENTE
 
 En el caso del endpoint público: 
+
 * LISTADO DE TODAS LAS SUCURSALES: 
     http://127.0.0.1:8000/api/sucursales/

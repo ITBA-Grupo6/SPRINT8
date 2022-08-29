@@ -18,7 +18,10 @@ from .serializers import SucursalSerializer
 from .serializers import ClienteSerializer
 from .serializers import CuentaSerializer
 from .serializers import PrestamoClienteSerializer
-#from .permissions import esEmpleado
+from .serializers import PrestamoSucursalSerializer
+
+from .permissions import esEmpleado
+
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
 from rest_framework import status
@@ -76,6 +79,21 @@ class PrestamoCliente(APIView):
             return Response('No existe cliente para este dni', status=status.HTTP_404_NOT_FOUND)
         else:
             return Response('No coincide el dni', status=status.HTTP_401_UNAUTHORIZED)
+
+
+class PrestamoSucursal(APIView):
+    permission_classes = [permissions.IsAuthenticated, esEmpleado]
+    def get(self, request, sucursal_id):
+        clientes = Cliente.objects.filter(branch_id = sucursal_id)
+        prestamos = []
+        for cliente in clientes:
+            if Prestamo.objects.filter(customer_id = cliente.customer_id).exists():
+                prestamos.extend(list(Prestamo.objects.filter(customer_id = cliente.customer_id)))
+        if prestamos:
+            serializer = PrestamoSucursalSerializer(prestamos, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response('No se hicieron prestamos en esta sucursal', status=status.HTTP_404_NOT_FOUND)
+
 
 class SucursalLists(APIView):
     def get(self, request):
