@@ -83,7 +83,7 @@ class TarjetaSerializer(serializers.ModelSerializer):
           fields = "__all__ "
 
 
-class DireccionesSerializer(serializers.ModelSerializer):
+class PrestamoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Direcciones
+        model = Prestamo
         fields = "__all__"
