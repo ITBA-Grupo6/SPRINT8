@@ -152,9 +152,9 @@ class DireccionesaModificar(APIView):
             self.permission_classes = [esEmpleado]
         return super().get_permissions()
 
-# cancelar prestamo por un cliente loegado
 
-class PrestamoViewSet(APIView):
+
+class Prestamo(APIView):
     serializer_class = PrestamoSerializer
     queryset = Prestamo.objects.all()
 
@@ -172,5 +172,25 @@ class PrestamoViewSet(APIView):
 
     def get_permissions(self):
         if self.action == 'create' or self.action == 'update' or self.action == 'partial_update' or self.action == 'destroy':
+            self.permission_classes = [esEmpleado]
+        return super().get_permissions()
+
+
+class ClienteVista(APIView):
+    serializer_class = ClienteSerializer
+
+    def get_queryset(self):
+        queryset = Cliente.objects.all()
+        customer_id = self.request.query_params.get('customer_id', None)
+        if customer_id is not None:
+            queryset = queryset.filter(customer_id=customer_id)
+        if self.request.user.is_authenticated:
+            if not self.request.user.user.is_employee:
+                queryset = queryset.filter(
+                    customer_id=self.request.user.user.customer_id)
+        return queryset
+
+    def get_permissions(self):
+        if self.action == 'partial_update':
             self.permission_classes = [esEmpleado]
         return super().get_permissions()
