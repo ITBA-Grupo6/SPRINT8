@@ -24,7 +24,7 @@ from .serializers import PrestamoClienteSerializer
 from .serializers import PrestamoSucursalSerializer
 from .serializers import TarjetaSerializer
 from .serializers import DireccionesSerializer 
-
+from .serializers import  PrestamoSerializer
 
 
 from .permissions import esEmpleado
@@ -149,5 +149,28 @@ class DireccionesaModificar(APIView):
 
     def get_permissions(self):
         if self.action == 'partial_update':
+            self.permission_classes = [esEmpleado]
+        return super().get_permissions()
+
+# cancelar prestamo por un cliente loegado
+
+class PrestamoViewSet(APIView):
+    serializer_class = PrestamoSerializer
+    queryset = Prestamo.objects.all()
+
+    def get_queryset(self):
+        queryset = Prestamo.objects.all()
+        sucursal_id = self.request.query_params.get('sucursal_id', None)
+        if sucursal_id is not None:
+            clientes = Cliente.objects.filter(branch_id=sucursal_id)
+            queryset = queryset.filter(customer_id__in=clientes)
+        if self.request.user.is_authenticated:
+            if not self.request.user.user.is_employee:
+                queryset = queryset.filter(
+                    customer_id=self.request.user.user.customer_id)
+        return queryset
+
+    def get_permissions(self):
+        if self.action == 'create' or self.action == 'update' or self.action == 'partial_update' or self.action == 'destroy':
             self.permission_classes = [esEmpleado]
         return super().get_permissions()
