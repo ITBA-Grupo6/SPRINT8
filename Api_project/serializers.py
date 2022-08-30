@@ -8,6 +8,7 @@ from .models import Cuenta
 from .models import Direcciones
 from .models import TipoCliente
 from .models import TipoCuenta
+from .models import Tarjeta
 
 class ClienteSerializer(serializers.ModelSerializer):
      class Meta:
@@ -74,4 +75,15 @@ class PrestamoSerializer(serializers.ModelSerializer):
 class EmpleadoSerializer(serializers.ModelSerializer):
      class Meta:
         model = Empleado
+        fields = "__all__"
+        
+class TarjetaSerializer(serializers.ModelSerializer):
+       class Meta:
+          model = Tarjeta
+          fields = "__all__ "
+
+
+class DireccionesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Direcciones
         fields = "__all__"

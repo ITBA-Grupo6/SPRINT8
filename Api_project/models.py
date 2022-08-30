@@ -26,6 +26,8 @@ class Direcciones(models.Model):
         managed = False
         db_table = 'direcciones'
 
+
+
 class Cuenta(models.Model):
     account_id = models.IntegerField(primary_key=True)
     customer_id = models.IntegerField()
@@ -103,3 +105,29 @@ class ids(models.Model):
     tipo = models.TextField(blank=True, null=False)
     class Meta:            
         db_table = 'ids'
+
+
+class MarcaTarjeta(models.Model):
+    cat_id = models.AutoField(primary_key=True)
+    cat_name = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'marca_tarjeta'
+
+class Tarjeta(models.Model):
+    card_id = models.AutoField(primary_key=True)
+    card_brand = models.ForeignKey(
+        MarcaTarjeta, models.DO_NOTHING, db_column='card_brand')
+    card_number = models.TextField(unique=True)
+    card_cvv = models.IntegerField()
+    card_from_date = models.DateTimeField()
+    card_expiration_date = models.DateTimeField()
+    card_type = models.TextField()
+    card_customer = models.ForeignKey(
+        Cliente, models.DO_NOTHING, db_column='card_customer')
+
+    class Meta:
+        managed = False
+        db_table = 'tarjeta'
+

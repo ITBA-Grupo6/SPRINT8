@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from Tarjetas.models import Tarjeta
+
+from Tarjetas.views import tarjetas
 
 # Create your views here.
 
@@ -19,6 +22,10 @@ from .serializers import ClienteSerializer
 from .serializers import CuentaSerializer
 from .serializers import PrestamoClienteSerializer
 from .serializers import PrestamoSucursalSerializer
+from .serializers import TarjetaSerializer
+from .serializers import DireccionesSerializer 
+
+
 
 from .permissions import esEmpleado
 
@@ -103,3 +110,44 @@ class SucursalLists(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
+
+# obtenter tarjeras asocidas
+class TarjetasAsociadas(APIView):
+    serializer_class = TarjetaSerializer
+
+    def get_queryset(self):
+        queryset = Tarjeta.objects.all()
+        customer_id = self.request.query_params.get('customer_id', None)
+        if customer_id is not None:
+            queryset = queryset.filter(card_customer=customer_id)
+        if self.request.user.is_authenticated:
+            if not self.request.user.user.is_employee:
+                queryset = queryset.filter(
+                    card_customer_id=self.request.user.user.customer_id)
+        return queryset
+
+    def get_permissions(self):
+        if self.action == 'partial_update':
+            self.permission_classes = [esEmpleado]
+        return super().get_permissions()
+
+# prueba de direccion 
+
+class DireccionesaModificar(APIView):
+    serializer_class = DireccionesSerializer
+
+    def get_queryset(self):
+        queryset = Direcciones.objects.all()
+        customer_id = self.request.query_params.get('customer_id', None)
+        if customer_id is not None:
+            queryset = queryset.filter(address_customer=customer_id)
+        if self.request.user.is_authenticated:
+            if not self.request.user.user.is_employee:
+                queryset = queryset.filter(
+                    address_customer=self.request.user.user.customer_id)
+        return queryset
+
+    def get_permissions(self):
+        if self.action == 'partial_update':
+            self.permission_classes = [esEmpleado]
+        return super().get_permissions()
